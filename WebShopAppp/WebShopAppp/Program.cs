@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using WebShopAppp.Infrastructure.Data;
+using WebShopAppp.Infrastructure.Data.Domain;
 
 namespace WebShopAppp
 {
@@ -17,7 +18,7 @@ namespace WebShopAppp
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
             options.SignIn.RequireConfirmedAccount = false;
             options.Password.RequireDigit = false;
