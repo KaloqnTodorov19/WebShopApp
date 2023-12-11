@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using WebShopAppp.Core.Contracts;
+using WebShopAppp.Core.Services;
 using WebShopAppp.Infrastructure.Data;
 using WebShopAppp.Infrastructure.Data.Domain;
+using WebShopAppp.Infrastructure.Data.Infrastructure;
 
 namespace WebShopAppp
 {
@@ -15,7 +18,7 @@ namespace WebShopAppp
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            options.UseLazyLoadingProxies().UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -27,10 +30,15 @@ namespace WebShopAppp
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 5;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddTransient<IBrandService, BrandService>();
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+
             var app = builder.Build();
+            app.PrepareDatabase();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
