@@ -76,7 +76,7 @@ namespace WebShopAppp.Infrastructure.Data.Infrastructure
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string[] roleNames = { "Administator", "Client" };
+            string[] roleNames = { "Administrator", "Client" };
 
             IdentityResult roleResult;
 
@@ -100,8 +100,8 @@ namespace WebShopAppp.Infrastructure.Data.Infrastructure
             if (await userManager.FindByNameAsync("admin") == null)
             {
                 ApplicationUser user = new ApplicationUser();
-                user.FirstName = "admin";
                 user.UserName = "admin";
+                user.FirstName = "admin";
                 user.LastName = "admin";
                 user.Email = "admin@admin.com";
                 user.Adress = "admin address";
