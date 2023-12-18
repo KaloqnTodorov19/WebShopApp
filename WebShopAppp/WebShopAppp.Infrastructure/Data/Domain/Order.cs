@@ -16,7 +16,7 @@ namespace WebShopAppp.Infrastructure.Data.Domain
 
         [Required]
         public int ProductId { get; set; }
-        public virtual Product Produict { get; set; } = null!;
+        public virtual Product Product { get; set; } = null!;
         [Required]
         public string UserId { get; set; } = null!;
         public virtual ApplicationUser User { get; set; } = null;
