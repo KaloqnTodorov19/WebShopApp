@@ -26,6 +26,6 @@ namespace WebShopAppp.Infrastructure.Data.Domain
         public decimal Price { get; set; }
 
         public decimal Discount { get; set; }
-        public decimal TotalPrice { get { return this.Quantity + this.Price - this.Quantity * this.Price * this.Discount / 100; } }
+        public decimal TotalPrice { get { return this.Quantity * this.Price - this.Quantity * this.Price * this.Discount / 100; } }
     }
 }
